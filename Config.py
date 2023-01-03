@@ -11,7 +11,7 @@ class Config:
         self.section_default = self.config['DEFAULT']
 
     def is_blackout_track_paused(self):
-        return self.section_default[self._KEY_BLACKOUT_TRACK_PAUSED]
+        return self.section_default[self._KEY_BLACKOUT_TRACK_PAUSED] == 'True'
 
     def blackout_track_paused(self, pause):
         self.section_default[self._KEY_BLACKOUT_TRACK_PAUSED] = pause

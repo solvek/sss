@@ -11,7 +11,7 @@ class DummyTrigger:
 
     @staticmethod
     def is_on():
-        return random.choice([True, False])
+        return random.choice([0, 1])
 
     def _trigger(self, handler):
         while True:
