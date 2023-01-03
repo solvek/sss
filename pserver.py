@@ -4,8 +4,10 @@ from BlackoutGSRegistry import BlackoutGSRegistry
 
 config = Config("solvek.cfg")
 
-sheetName = 'DevSheet' if config.is_test() else 'GatewayPetrushky'
-registry = BlackoutGSRegistry(config.get_section('GOOGLE_SPREADSHEET'), sheetName)
+# sheetName = 'DevSheet' if config.is_test() else 'GatewayPetrushky'
+config_spreadsheet = config.get_section('GOOGLE_SPREADSHEET')
+sheetName = config_spreadsheet['SheetName']
+registry = BlackoutGSRegistry(config_spreadsheet, sheetName)
 
 
 # print('Recent timestamp:', registry.recent_timestamp)
@@ -32,4 +34,5 @@ else:
 trigger = Trigger(on_blackout_trigger)
 
 while True:
+    on_blackout_trigger(trigger.is_on())
     time.sleep(60)
