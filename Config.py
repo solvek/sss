@@ -17,6 +17,9 @@ class Config:
         self.section_default[self._KEY_BLACKOUT_TRACK_PAUSED] = pause
         self._save()
 
+    def is_test(self):
+        return self.section_default['DummyTrigger'] == 'True'
+
     def get_section(self, name):
         return self.config[name]
 

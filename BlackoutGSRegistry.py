@@ -4,7 +4,7 @@ import json
 
 
 class BlackoutGSRegistry:
-    def __init__(self, config):
+    def __init__(self, config, sheetname):
         json_cred = json.loads('''{
            "type": "service_account",
            "project_id": "mythic-reach-234308",
@@ -34,7 +34,7 @@ class BlackoutGSRegistry:
 
         spreadsheet = gc.open_by_url(
             'https://docs.google.com/spreadsheets/d/1ZLH7fvezsIXgZ2I_qq9v6smrVuUemFqQyA2DoEq9x4A/edit?usp=sharing')
-        self.worksheet = spreadsheet.worksheet(config['SheetName'])
+        self.worksheet = spreadsheet.worksheet(sheetname)
         last_row_number = len(self.worksheet.col_values(1))
         row = self.worksheet.row_values(last_row_number)
         self.recent_timestamp = row[0]

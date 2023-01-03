@@ -4,7 +4,8 @@ from BlackoutGSRegistry import BlackoutGSRegistry
 
 config = Config("solvek.cfg")
 
-registry = BlackoutGSRegistry(config.get_section('GOOGLE_SPREADSHEET'))
+sheetName = 'DevSheet' if config.is_test() else 'GatewayPetrushky'
+registry = BlackoutGSRegistry(config.get_section('GOOGLE_SPREADSHEET'), sheetName)
 
 
 # print('Recent timestamp:', registry.recent_timestamp)
@@ -23,7 +24,7 @@ def on_blackout_trigger(light_is_on):
         on_blackout_edge(light_is_on, now, registry.recent_timestamp)
 
 
-if config.section_default['DummyTrigger'] == 'True':
+if config.is_test():
     from DummyTrigger import DummyTrigger as Trigger
 else:
     from GpioTrigger import GpioTrigger as Trigger

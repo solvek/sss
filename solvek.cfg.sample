@@ -6,4 +6,3 @@ BlackoutTrackPaused = False
 [GOOGLE_SPREADSHEET]
 
 GooglePrivateKey=???
-SheetName=DevSheet

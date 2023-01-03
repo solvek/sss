@@ -15,7 +15,7 @@ Has such features:
 3. `cd sss`
 4. `pip3 install -r requirements.txt` [More info](https://note.nkmk.me/en/python-pip-install-requirements/)
 5. Create config file `cp solvek.cfg.sample solvek.cfg`
-6. Set correct config values in file `solvek.cfg`
+6. Set correct config values in file `nano solvek.cfg`
 
 # Run server
 
