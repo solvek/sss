@@ -1,8 +1,11 @@
 import time
 from Config import Config
+from BlackoutGSRegistry import BlackoutGSRegistry
 
 config = Config("solvek.cfg")
 
+registry = BlackoutGSRegistry(config.get_section('GOOGLE_SPREADSHEET'))
+print('Recent timestamp:', registry.recent_timestamp)
 
 # def on_blackout_edge(light_is_on, timestamp, last_timestamp):
 
