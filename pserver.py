@@ -1,8 +1,28 @@
+import logging
 import time
 from Config import Config
 from BlackoutGSRegistry import BlackoutGSRegistry
+from Bot import Bot
+import threading
+import asyncio
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 
 config = Config("solvek.cfg")
+
+
+def on_trigger_pause(paused):
+    config.blackout_track_paused(paused)
+
+
+logging.info('Creating bot')
+config_bot = config.get_section('TELEGRAM_BOT')
+bot = Bot(config_bot, on_trigger_pause)
+
+# asyncio.run(bot.send_message("Test message"))
 
 # sheetName = 'DevSheet' if config.is_test() else 'GatewayPetrushky'
 config_spreadsheet = config.get_section('GOOGLE_SPREADSHEET')
@@ -12,8 +32,35 @@ registry = BlackoutGSRegistry(config_spreadsheet, sheetName)
 
 # print('Recent timestamp:', registry.recent_timestamp)
 
+def timespan(start, end):
+    duration = int(end) - int(start)
+    minutes = duration / 60
+    hours = int(minutes // 60)
+    minutes = int(minutes - hours * 60)
+    return f"{hours} год {minutes:02} хв"
+
+
+# send_messages_loop = asyncio.get_event_loop()
+loop = asyncio.new_event_loop()
+
+
 def on_blackout_edge(light_is_on, timestamp, last_timestamp):
     print("New status", light_is_on, ", new timestamp", timestamp)
+
+    ts = timespan(last_timestamp, timestamp)
+
+    if light_is_on:
+        on_off = "💡 #Увімкнено електроенергію (тривалість відключення " \
+                 + ts + ") #електроенергія"
+    else:
+        on_off = "🙅 #Вимкнено електроенергію (тривалість підключення " \
+                 + ts + ") #електроенергія"
+
+    logging.info('Sending notification: ' + on_off)
+
+    # send_messages_loop.create_task(bot.send_message(on_off))
+    asyncio.run_coroutine_threadsafe(bot.send_message(on_off), loop)
+    logging.info('Send enqueued. Adding record')
     registry.add_record(light_is_on, timestamp)
 
 
@@ -33,6 +80,29 @@ else:
 
 trigger = Trigger(on_blackout_trigger)
 
-while True:
-    on_blackout_trigger(trigger.is_on())
-    time.sleep(60)
+
+def poll_trigger():
+    while True:
+        on_blackout_trigger(trigger.is_on())
+        time.sleep(60)
+        print("Loop")
+
+
+logging.info("Starting trigger polling tread...")
+t = threading.Thread(target=poll_trigger)
+t.daemon = True
+t.start()
+
+
+def run_loop():
+    loop.run_forever()
+
+
+logging.info("Starting events loop...")
+t = threading.Thread(target=run_loop)
+t.daemon = True
+t.start()
+
+logging.info("Starting bot polling...")
+bot.run()
+logging.info("Script finished")
