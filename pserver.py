@@ -5,13 +5,15 @@ from BlackoutGSRegistry import BlackoutGSRegistry
 from Bot import Bot
 import threading
 import asyncio
+import os
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
 
-config = Config("solvek.cfg")
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+config = Config(os.path.join(__location__, "solvek.cfg"))
 
 
 def on_trigger_pause(paused):

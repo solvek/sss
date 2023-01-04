@@ -73,7 +73,7 @@ sudo systemctl enable pserver
 
 ```
 systemctl daemon-reload
-systemctl restart lighton
+systemctl restart pserver
 ```
 
 ## Remove service
