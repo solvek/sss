@@ -78,6 +78,11 @@ if config.is_test():
 else:
     from GpioTrigger import GpioTrigger as Trigger
 
+
+def run_loop():
+    loop.run_forever()
+
+
 trigger = Trigger(on_blackout_trigger)
 
 
@@ -92,11 +97,6 @@ logging.info("Starting trigger polling tread...")
 t = threading.Thread(target=poll_trigger)
 t.daemon = True
 t.start()
-
-
-def run_loop():
-    loop.run_forever()
-
 
 logging.info("Starting events loop...")
 t = threading.Thread(target=run_loop)

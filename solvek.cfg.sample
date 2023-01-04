@@ -7,3 +7,9 @@ BlackoutTrackPaused = False
 
 GooglePrivateKey=???
 SheetName=DevSheet
+
+[TELEGRAM_BOT]
+
+TelegramBotApiKey=???
+MasterChatId=296473031
+PetrushkyChatId=-1001708363632

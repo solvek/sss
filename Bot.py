@@ -5,7 +5,7 @@ from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 class Bot:
     def __init__(self, config, trigger_pause_listener):
         self.application = ApplicationBuilder().token(config['TelegramBotApiKey']).build()
-        self.masterChatId = config['MasterChatId']
+        self.masterChatId = int(config['MasterChatId'])
         self.trigger_pause_listener = trigger_pause_listener
 
         self.application.add_handler(CommandHandler('light_pause', self.light_pause))
