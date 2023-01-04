@@ -88,8 +88,8 @@ trigger = Trigger(on_blackout_trigger)
 
 def poll_trigger():
     while True:
-        on_blackout_trigger(trigger.is_on())
         time.sleep(60)
+        on_blackout_trigger(trigger.is_on())
         print("Loop")
 
 
