@@ -11,4 +11,4 @@ class GpioTrigger:
         GPIO.add_event_detect(self._PIN, GPIO.BOTH, callback=lambda channel: handler(self.is_on()), bouncetime=1000)
 
     def is_on(self):
-        return GPIO.input(self._PIN)
+        return 1-GPIO.input(self._PIN)
