@@ -25,6 +25,64 @@ Has such features:
 
 `git pull`
 
+# Service
+
+## Adding service
+
+```
+sudo touch /etc/systemd/system/pserver.service
+sudo nano /etc/systemd/system/pserver.service
+```
+
+### File content
+
+```commandline
+[Unit]
+Description=Petrushky Server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=pi
+Restart=always
+RestartSec=1
+ExecStart=python3 /home/pi/sss/pserver.py
+
+[Install]
+WantedBy=multi-user.target
+```
+```
+sudo systemctl start pserver
+sudo systemctl enable pserver
+```
+
+## View service status
+
+`sudo systemctl status pserver`
+
+### View logs
+
+`journalctl -u pserver.service`
+
+## Stop service
+
+`sudo systemctl stop pserver`
+
+## Restart service
+
+```
+systemctl daemon-reload
+systemctl restart lighton
+```
+
+## Remove service
+
+```
+sudo systemctl stop pserver
+sudo systemctl disable pserver
+```
+
 # Libraries
 
  - [ConfigParser](https://docs.python.org/3/library/configparser.html)
