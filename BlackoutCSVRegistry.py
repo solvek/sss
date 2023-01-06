@@ -5,8 +5,8 @@ class BlackoutCSVRegistry:
     def __init__(self, file):
         self.file = file
         for row in self.rows():
-            self.recent_timestamp = float(row[0])
-            self.is_on = int(row[1])
+            self.recent_timestamp = row['timestamp']
+            self.is_on = row['is_on']
 
     def add_record(self, is_on, timestamp):
         with open(self.file, mode='a') as csv_file:
@@ -24,6 +24,4 @@ class BlackoutCSVRegistry:
                 if is_header:
                     is_header = False
                 else:
-                    yield row
-                    self.recent_timestamp = float(row[0])
-                    self.is_on = int(row[1])
+                    yield {'timestamp': float(row[0]), 'is_on': int(row[1])}

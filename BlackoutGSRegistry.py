@@ -37,8 +37,8 @@ class BlackoutGSRegistry:
         self.worksheet = spreadsheet.worksheet(sheetname)
         last_row_number = len(self.worksheet.col_values(1))
         row = self.worksheet.row_values(last_row_number)
-        self.recent_timestamp = row[0]
-        self.is_on = row[1]
+        self.recent_timestamp = float(row[0])
+        self.is_on = int(row[1])
 
     def add_record(self, is_on, timestamp):
         row = [timestamp, is_on]

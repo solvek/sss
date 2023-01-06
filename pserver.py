@@ -29,7 +29,7 @@ bot = Bot(config_bot, on_trigger_pause)
 # from BlackoutGSRegistry import BlackoutGSRegistry
 # registry = BlackoutGSRegistry(config_spreadsheet, sheetName)
 
-registry = toolkit.csv_registry()
+registry = toolkit.get_csv_registry()
 
 
 # print('Recent timestamp:', registry.recent_timestamp)
