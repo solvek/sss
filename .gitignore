@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 /solvek.cfg
+/blackouts.csv
