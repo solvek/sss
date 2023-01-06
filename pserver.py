@@ -1,19 +1,18 @@
-import logging
-import time
-from Config import Config
-from BlackoutGSRegistry import BlackoutGSRegistry
-from Bot import Bot
-import threading
 import asyncio
-import os
+import logging
+import threading
+import time
+
+from Bot import Bot
+from Toolkit import Toolkit
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
 
-__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-config = Config(os.path.join(__location__, "solvek.cfg"))
+toolkit = Toolkit()
+config = toolkit.config
 
 
 def on_trigger_pause(paused):
@@ -24,13 +23,7 @@ logging.info('Creating bot')
 config_bot = config.get_section('TELEGRAM_BOT')
 bot = Bot(config_bot, on_trigger_pause)
 
-# asyncio.run(bot.send_message("Test message"))
-
-# sheetName = 'DevSheet' if config.is_test() else 'GatewayPetrushky'
-config_spreadsheet = config.get_section('GOOGLE_SPREADSHEET')
-sheetName = config_spreadsheet['SheetName']
-registry = BlackoutGSRegistry(config_spreadsheet, sheetName)
-
+registry = toolkit.csv_registry()
 
 # print('Recent timestamp:', registry.recent_timestamp)
 
