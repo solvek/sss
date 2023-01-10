@@ -10,7 +10,7 @@ async def _run_with_response(cmd, bot, chat_id):
 
     await bot.send_message(chat_id=chat_id, text=f"Executed command:{cmd}, result:\n")
     for y in range(_MAX_MESSAGE_SIZE, len(resp) + _MAX_MESSAGE_SIZE, _MAX_MESSAGE_SIZE):
-        await bot.send_message(chat_id=chat_id, text=y)
+        await bot.send_message(chat_id=chat_id, text=resp[y-_MAX_MESSAGE_SIZE:y])
 
 
 class Bot:
