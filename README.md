@@ -83,6 +83,29 @@ sudo systemctl stop pserver
 sudo systemctl disable pserver
 ```
 
+# Storing locally data in csv
+
+```commandline
+nano blackouts.csv
+```
+
+# GPIO Command line
+
+```commandline
+raspi-gpio set 17 ip pu
+raspi-gpio get 17
+```
+
+## Wiring
+
+ - Yellow - ground
+ - Red - GPIO17
+
+# Telegram bot commands
+
+ - `/light_pause`
+ - `/light_resume`
+
 # Libraries
 
  - [ConfigParser](https://docs.python.org/3/library/configparser.html)

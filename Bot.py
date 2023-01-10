@@ -1,5 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+import os
 
 
 class Bot:
@@ -26,6 +27,11 @@ class Bot:
         if await self._check_permission(update, context):
             self.trigger_pause_listener(False)
             await context.bot.send_message(chat_id=update.effective_chat.id, text="Light tracking resumed")
+
+    # async def command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    #     if not await self._check_permission(update, context):
+    #         return
+    #     await context.bot.send_message(chat_id=update.effective_chat.id, text="Enter command:")
 
     def run(self):
         self.application.run_polling()
