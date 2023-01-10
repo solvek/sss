@@ -2,10 +2,15 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import os
 
+_MAX_MESSAGE_SIZE = 4000
+
 
 async def _run_with_response(cmd, bot, chat_id):
     resp = os.popen(cmd).read()
-    await bot.send_message(chat_id=chat_id, text=f"Executed command:{cmd}, result: {resp}")
+
+    await bot.send_message(chat_id=chat_id, text=f"Executed command:{cmd}, result:\n")
+    for y in range(_MAX_MESSAGE_SIZE, len(resp) + _MAX_MESSAGE_SIZE, _MAX_MESSAGE_SIZE):
+        await bot.send_message(chat_id=chat_id, text=y)
 
 
 class Bot:
@@ -51,12 +56,13 @@ class Bot:
     async def clogs(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not await self._check_permission(update, context):
             return
-        await _run_with_response("journalctl --unit=pserver.service -n 100 --no-pager", context.bot, update.effective_chat.id)
+        await _run_with_response("journalctl --unit=pserver.service -n 100 --no-pager", context.bot,
+                                 update.effective_chat.id)
 
     async def deluge(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not await self._check_permission(update, context):
             return
-        cmd = 'deluge-console '+' '.join(context.args)
+        cmd = 'deluge-console ' + ' '.join(context.args)
         await _run_with_response(cmd, context.bot, update.effective_chat.id)
 
     def run(self):
