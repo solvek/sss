@@ -110,6 +110,13 @@ raspi-gpio get 17
  - `/light_pause`
  - `/light_resume`
  - `/command <command>`
+ - `/cchmod` - permissions for usb directory content
+
+## Deluge commands
+
+ - `/deluge info` - list torrents
+ - `/deluge rm <torrent-id>` - remove torrent
+ - `/deluge add <magnet>` - add torrent by [magnet](https://nutbread.github.io/t2m/)
 
 # Libraries
 
