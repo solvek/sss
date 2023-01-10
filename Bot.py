@@ -62,7 +62,7 @@ class Bot:
     async def deluge(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not await self._check_permission(update, context):
             return
-        cmd = 'deluge-console ' + ' '.join(context.args)
+        cmd = 'deluge-console ' + (' '.join(context.args))
         await _run_with_response(cmd, context.bot, update.effective_chat.id)
 
     def run(self):
