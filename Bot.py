@@ -1,6 +1,7 @@
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, filters, MessageHandler
 import os
+import logging
 
 _MAX_MESSAGE_SIZE = 4000
 
@@ -25,6 +26,7 @@ class Bot:
         self.application.add_handler(CommandHandler('cchmod', self.cchmod))
         self.application.add_handler(CommandHandler('clogs', self.clogs))
         self.application.add_handler(CommandHandler('deluge', self.deluge))
+        self.application.add_handler(MessageHandler(filters.TEXT, self.default))
 
     async def send_message(self, message, chat_id=None):
         if chat_id is None:
@@ -64,6 +66,10 @@ class Bot:
             return
         cmd = 'deluge-console ' + (' '.join(context.args))
         await _run_with_response(cmd, context.bot, update.effective_chat.id)
+
+    # noinspection PyMethodMayBeStatic
+    async def default(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        logging.info("Unhandled message: "+update.message.text)
 
     def run(self):
         self.application.run_polling()
