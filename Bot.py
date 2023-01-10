@@ -11,6 +11,7 @@ class Bot:
 
         self.application.add_handler(CommandHandler('light_pause', self.light_pause))
         self.application.add_handler(CommandHandler('light_resume', self.light_resume))
+        self.application.add_handler(CommandHandler('command', self.command))
 
     async def send_message(self, message, chat_id=None):
         if chat_id is None:
@@ -28,10 +29,12 @@ class Bot:
             self.trigger_pause_listener(False)
             await context.bot.send_message(chat_id=update.effective_chat.id, text="Light tracking resumed")
 
-    # async def command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-    #     if not await self._check_permission(update, context):
-    #         return
-    #     await context.bot.send_message(chat_id=update.effective_chat.id, text="Enter command:")
+    async def command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        if not await self._check_permission(update, context):
+            return
+        cmd = ' '.join(context.args)
+        resp = os.popen(cmd).read()
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Executed command:{cmd}, result: {resp}")
 
     def run(self):
         self.application.run_polling()

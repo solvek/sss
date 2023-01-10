@@ -63,7 +63,11 @@ sudo systemctl enable pserver
 
 ### View logs
 
-`journalctl -u pserver.service`
+`journalctl --unit=pserver.service -n 100 --no-pager`
+
+#### Restart logging (this clears logs)
+
+`systemctl restart systemd-journald`
 
 ## Stop service
 
@@ -105,6 +109,7 @@ raspi-gpio get 17
 
  - `/light_pause`
  - `/light_resume`
+ - `/command <command>`
 
 # Libraries
 
