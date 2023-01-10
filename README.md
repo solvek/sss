@@ -111,6 +111,7 @@ raspi-gpio get 17
  - `/light_resume`
  - `/command <command>`
  - `/cchmod` - permissions for usb directory content
+ - `/clogs` - view pserver logs
 
 ## Deluge commands
 
