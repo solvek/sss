@@ -32,7 +32,7 @@ class Bot:
         if chat_id is None:
             chat_id = self.masterChatId
 
-        await self.application.bot.send_message(text=message, chat_id=chat_id)
+        await self.application.bot.send_message(text=message, chat_id=chat_id, read_timeout=600, write_timeout=600)
 
     async def light_pause(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if await self._check_permission(update, context):
