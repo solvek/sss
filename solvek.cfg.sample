@@ -12,4 +12,8 @@ SheetName=DevSheet
 
 TelegramBotApiKey=???
 MasterChatId=296473031
-PetrushkyChatId=-1001708363632
+
+# Петрушки
+BlackoutNotifChatId=-1001708363632
+# Solvek
+#BlackoutNotifChatId=296473031

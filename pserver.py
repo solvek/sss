@@ -61,7 +61,7 @@ def on_blackout_edge(light_is_on, timestamp, last_timestamp):
     logging.info('Sending notification: ' + on_off)
 
     # send_messages_loop.create_task(bot.send_message(on_off))
-    asyncio.run_coroutine_threadsafe(bot.send_message(on_off), loop)
+    asyncio.run_coroutine_threadsafe(bot.send_message(on_off, config_bot["BlackoutNotifChatId"]), loop)
     logging.info('Send enqueued. Adding record')
     registry.add_record(light_is_on, timestamp)
 
