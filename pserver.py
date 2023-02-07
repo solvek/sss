@@ -23,14 +23,10 @@ logging.info('Creating bot')
 config_bot = config.get_section('TELEGRAM_BOT')
 bot = Bot(config_bot, on_trigger_pause)
 
-# # sheetName = 'DevSheet' if config.is_test() else 'GatewayPetrushky'
-# config_spreadsheet = config.get_section('GOOGLE_SPREADSHEET')
-# sheetName = config_spreadsheet['SheetName']
-# from BlackoutGSRegistry import BlackoutGSRegistry
-# registry = BlackoutGSRegistry(config_spreadsheet, sheetName)
+registry = toolkit.get_gs_registry()
 
-registry = toolkit.get_csv_registry()
 
+# registry = toolkit.get_csv_registry()
 
 # print('Recent timestamp:', registry.recent_timestamp)
 

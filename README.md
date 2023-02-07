@@ -119,6 +119,10 @@ raspi-gpio get 17
  - `/deluge rm <torrent-id>` - remove torrent
  - `/deluge add <magnet>` - add torrent by [magnet](https://nutbread.github.io/t2m/)
 
+# Uploader
+
+ - `crontab -e`
+
 # Libraries
 
  - [ConfigParser](https://docs.python.org/3/library/configparser.html)
