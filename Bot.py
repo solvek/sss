@@ -24,7 +24,7 @@ class Bot:
         self.application.add_handler(CommandHandler('light_resume', self.light_resume))
         self.application.add_handler(CommandHandler('command', self.command))
         self.application.add_handler(CommandHandler('cchmod', self.cchmod))
-        self.application.add_handler(CommandHandler('updms', self.updms()))
+        self.application.add_handler(CommandHandler('updms', self.updms))
         self.application.add_handler(CommandHandler('clogs', self.clogs))
         self.application.add_handler(CommandHandler('deluge', self.deluge))
         self.application.add_handler(MessageHandler(filters.TEXT, self.default))
